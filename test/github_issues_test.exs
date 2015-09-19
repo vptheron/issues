@@ -9,13 +9,15 @@ defmodule GithubIssuesTest do
   end
 
   test "Handle valid responses" do
-    response = %HTTPoison.Response{status_code: 200, body: "Hello"}
-    assert handle_response({:ok, response}) == {:ok, "Hello"}
+    body = "{\"msg\" : \"hello\"}"
+    response = %HTTPoison.Response{status_code: 200, body: body}
+    assert handle_response({:ok, response}) == {:ok, %{"msg" => "hello"}}
   end
 
   test "Handle invalid responses" do
-     response = %HTTPoison.Response{status_code: 404, body: "NotFound"}
-     assert handle_response({:ok, response}) == {:error, "NotFound"}
+    body = "{\"msg\" : \"NotFound\"}"
+    response = %HTTPoison.Response{status_code: 404, body: body}
+    assert handle_response({:ok, response}) == {:error, %{"msg" => "NotFound"}}
   end
 
   test "Handle errors" do
