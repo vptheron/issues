@@ -16,4 +16,8 @@ defmodule CliTest do
     assert parse_args(["user", "project"]) == {"user", "project", 4}
   end
 
+  test ":help returned if only one argument given" do
+    assert parse_args(["user"]) == :help
+  end
+
 end
